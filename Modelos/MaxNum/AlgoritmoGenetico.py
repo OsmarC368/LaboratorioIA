@@ -1,6 +1,7 @@
 import random
 from tabulate import tabulate
-
+import matplotlib.pyplot as plt
+import numpy as geek
 
 def funcion(x):
     return (x**4) - (4*(x**3)) + (7*x) 
@@ -117,7 +118,20 @@ def solve():
         cicle += 1
 
 
-def graph():
-    pass
+def graph(rang, max):
+    x = geek.linspace(float(rang[0]), float(rang[1]), num=30)
+    # x = geek.arange(rang[0], rang[1], 0.01)
+    y = [funcion(z) for z in x]
+    plt.plot(x, y)
+    plt.grid(True)
+    plt.axvline(max, color="green", linestyle="--")
+    plt.title("Grafico de la Funcion", loc="center", fontsize=16)
+    plt.legend(["Funcion", "Maximo"])
+    plt.rc('axes', axisbelow=True)
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.show()
+
 
 solve()
+graph([-2,4], -2)

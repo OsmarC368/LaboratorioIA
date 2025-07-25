@@ -3,3 +3,6 @@ def count(path, graph):
     for i in range(len(path)-1):
         sum += graph[path[i]][path[i+1]]
     return sum
+
+def graph():
+    pass
