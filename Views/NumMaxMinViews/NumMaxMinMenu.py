@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from .BusLocal import BusLocalView
+from .NumGen import MaxMinGenetico
 
 class NumMaxMinMenuView:
     def __init__(self, mWindow):
@@ -71,8 +73,9 @@ def option(self, k):
 
 def showLocal(self):
     self.window.destroy()
-    pass
+    BusLocalView(self.mainWindow).show()
+    
 
 def showGen(self):
     self.window.destroy()
-    pass
+    MaxMinGenetico(self.mainWindow).show()

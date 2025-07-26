@@ -98,24 +98,33 @@ def cruzar(num, table, maxRange):
 
 
 
-def solve():
+def solve(numInd, numGem, rang):
     numList = []
     cicle = 1
-    while(len(numList) < 5):
-        num = random.randint(-2,4)
+    while(len(numList) < numInd):
+        num = random.randint(rang[0],rang[1])
         if num not in numList:
             numList.append(num)
 
-    while(cicle != 21):
+    while(cicle != numGem):
         newGen = []
         firstTable = generateTable(cicle, numList)
-        while(len(newGen) < 5):
-            result = path(ruleta(firstTable), firstTable, 4)
+        while(len(newGen) < numInd):
+            result = path(ruleta(firstTable), firstTable, rang[1])
             for x in result:
-                if len(newGen) < 5:
+                if len(newGen) < numInd:
                     newGen.append(x)
         numList = newGen.copy()
         cicle += 1
+
+    result = [0,0]
+    for ind in firstTable:
+        if ind[3] > result[1]:
+            result[0] = ind[2]
+            result[1] = ind[3]
+
+
+    return result, firstTable
 
 
 def graph(rang, max):
@@ -132,5 +141,5 @@ def graph(rang, max):
     plt.show()
 
 
-solve()
-graph([-2,4], -2)
+# solve(5,20,[-2,4])
+# graph([-2,4], -2)

@@ -14,7 +14,12 @@ Models/Reinas/Tempereture.py
 Models/Reinas/__init__.py
 Views/__init__.py
 Views/mainMenu.py
+Views/NumMaxMinViews/BusLocal.py
+Views/NumMaxMinViews/NumMaxMinMenu.py
+Views/NumMaxMinViews/__init__.py
+Views/ReinasViews/ReinasGen.py
 Views/ReinasViews/ReinasMenu.py
+Views/ReinasViews/ReinasTabu.py
 Views/ReinasViews/ReinasTemp.py
 Views/ReinasViews/__init__.py
 test.egg-info/PKG-INFO
