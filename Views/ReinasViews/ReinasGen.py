@@ -65,7 +65,7 @@ class ReinasGenetico:
 
         self.buttonGraph = tk.Button(
             self.window, 
-            command=lambda: (), 
+            command=lambda: self.showGraph(), 
             text="Grafico",
             background="#243d55",
             activebackground="#61b9eb",
@@ -104,12 +104,12 @@ class ReinasGenetico:
             indNum = int(self.entryNumInd.get())
             qNum = int(self.entryNumReinas.get())
             genNum = int(self.entryNumGen.get())
-            result, table = Genetics.solve(indNum, qNum, genNum)
+            self.result, table = Genetics.solve(indNum, qNum, genNum)
             
-            if result != None:
+            if self.result != None:
                 self.textResult.insert('end', f"Resultado Perfecto Encontrado!")
-                self.textResult.insert('end', f"\nPosiciones: {result[0]}")
-                self.textResult.insert('end', f"\nNumero de Colisiones: {result[1]}")
+                self.textResult.insert('end', f"\nPosiciones: {self.result[0]}")
+                self.textResult.insert('end', f"\nNumero de Colisiones: {self.result[1]}")
             else:
                 self.textResult.insert('end', "No se Encontro un Resultado Perfecto!")
 
@@ -121,4 +121,13 @@ class ReinasGenetico:
 
         except:
             self.showMessage("ERROR", "Posible Error con la Entrada de Datos")
+
+    def showGraph(self):
+        try:
+            if self.result == None:
+                self.showMessage("ERROR", "Realice un Calculo Primero!")
+            else:
+                Genetics.graph(self.result[0], self.result[1])
+        except:
+                self.showMessage("ERROR", "FATAL ERROR")
             
