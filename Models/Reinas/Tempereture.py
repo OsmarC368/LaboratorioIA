@@ -1,5 +1,5 @@
 import random
-from QueenModel import *
+from .QueenModel import *
 from tabulate import tabulate
 
 def permut(list):
@@ -14,10 +14,10 @@ def permut(list):
     return list
 
 
-def solve():
+def solve(initSol):
     initialSol = {
-        "list": [4,2,1,3,5,6,7,8,9],
-        "colNum": countColisions(createTable([4,2,1,3]), [4,2,1,3]) 
+        "list": initSol,
+        "colNum": countColisions(createTable(initSol), initSol) 
         }
     
     colX = initialSol["colNum"]
@@ -38,6 +38,4 @@ def solve():
     print(f"La menor solucion encontrada tiene {initialSol['colNum']} colisiones")
     print(f"Tablero:")
     print(tabulate(createTable(initialSol["list"]), tablefmt="fancy_grid"))
-
-
-solve()
+    return initialSol

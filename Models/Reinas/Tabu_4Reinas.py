@@ -1,6 +1,6 @@
 from tabulate import tabulate
 import random
-from QueenModel import *
+from .QueenModel import *
 from math import *
 
 def permut(list, tabuList):
@@ -17,8 +17,8 @@ def permut(list, tabuList):
     tabuList.append(list.copy())
     return list, tabuList
 
-def solve():
-    initialSol = [1,2,3,4,5,6,7,8,9]
+def solve(initSol):
+    initialSol = initSol
     tabuList = []
     colMin = countColisions(createTable(initialSol), initialSol)
     sol2 = []
@@ -40,4 +40,4 @@ def solve():
     print(f"Numero de Colisiones: {countColisions(createTable(sol2), sol2)}")
     print(tabulate(createTable(sol2), tablefmt="fancy_grid"))
 
-solve()
+    return [sol2, countColisions(createTable(sol2), sol2)], tabuList

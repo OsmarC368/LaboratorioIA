@@ -1,7 +1,6 @@
-from QueenModel import *
+from .QueenModel import *
 import random
 from tabulate import tabulate
-from collections import Counter
 
 def generateTable(numGen, qList):
     Fi = sum([countColisions(createTable(placement), placement) for placement in qList])
@@ -36,17 +35,6 @@ def mutar(placement, qNum):
 
     return [ind]
 
-
-# def ruleta(table):
-#     ranNum = random.random()
-#     val = False
-#     for row in table:
-#         if float(row[3]) < ranNum:
-#             num = row
-#             val = True
-#             break
-
-#     return num if val else table[0]
 
 def tournament(table):
     ran1 = random.randint(0,len(table)-1)
@@ -135,30 +123,6 @@ def cruzar(num, table, qNum):
 
     return [child1, child2]
 
-# def cruzar(num, table, qNum):
-
-#     ranNum = tournament(table)
-
-#     permut1 = num[0][0:qNum]
-#     permut2 = ranNum[0][0:qNum]
-
-#     child1 = []
-#     child2 = []
-
-#     for i in range(len(permut1)):
-#         if i%2 == 0:
-#             child1.append(permut1[i])
-#             child2.append(permut2[i])
-#         else:
-#             child1.append(permut2[i])
-#             child2.append(permut1[i])
-    
-#     counter1 = Counter(child1)
-#     counter2 = Counter(child2)
-
-        
-#     return [child1, child2]
-
 def genInitialSol(qNum, indNum):
     numList = []
     while(len(numList) < indNum):
@@ -170,12 +134,12 @@ def genInitialSol(qNum, indNum):
         numList.append(aux)
     return numList
 
-def solve():
-    indNum = 5
-    numList = genInitialSol(9, indNum)
+def solve(indNum, qNum, genNum):
+    numList = genInitialSol(qNum, indNum)
     val = True
     numGen = 1
-    while(numGen < 3001 and val):
+    finalAns = None
+    while(numGen < genNum and val):
         table = generateTable(numGen, numList)
         for x in numList:
             if countColisions(createTable(x), x) == 0:
@@ -183,6 +147,7 @@ def solve():
                 print(tabulate(createTable(x), tablefmt="fancy_grid"))
                 print(f"Colisiones: {countColisions(createTable(x), x)}\n")
                 val = False
+                finalAns = [x, countColisions(createTable(x), x)]
                 break
         
         newGen = []
@@ -194,35 +159,4 @@ def solve():
                     newGen.append(ind)
         numList = newGen.copy()
         numGen += 1
-
-
-    # firstTable = generateTable(1, numList)
-    # while(len(newGen) < 5):
-    #     #newGen.append(ruleta(firstTable))
-    #     result = path(ruleta(firstTable[::-1]), firstTable, len(numList[0]))
-    #     for x in result:
-    #         if len(newGen) < 5:
-    #             newGen.append(x)
-    
-    
-    # while(cicle != 3001 and val):
-    #     newTable = generateTable(cicle, newGen)
-    #     newGen = []
-    #     while(len(newGen) < 5):
-    #         result = path(ruleta(firstTable[::-1]), firstTable, len(numList[0]))
-    #         for x in result:
-    #             if len(newGen) < 5:
-    #                 newGen.append(x)
-    #     for x in newTable:
-    #         if x[1] == 0:
-    #             val = False
-    #             finalAns = x[0]
-
-    #     cicle += 1
-
-    # if len(finalAns) != 0:
-    #     print(f"\n/----------Se Encontro una Solucion Perfecta! en la Gen#{cicle-1}----------------/")
-    #     print(tabulate(createTable(finalAns), tablefmt="fancy_grid"))
-    #     print(f"Colisiones: {countColisions(createTable(finalAns), finalAns)}\n")
-         
-solve()
+    return finalAns, table

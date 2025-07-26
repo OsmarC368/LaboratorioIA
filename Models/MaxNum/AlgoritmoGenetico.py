@@ -120,7 +120,6 @@ def solve():
 
 def graph(rang, max):
     x = geek.linspace(float(rang[0]), float(rang[1]), num=30)
-    # x = geek.arange(rang[0], rang[1], 0.01)
     y = [funcion(z) for z in x]
     plt.plot(x, y)
     plt.grid(True)
