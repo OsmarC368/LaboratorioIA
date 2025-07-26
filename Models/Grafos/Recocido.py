@@ -1,4 +1,4 @@
-from GraphModel import *
+from .GraphModel import *
 import random
 import math
 
@@ -87,5 +87,7 @@ def solve(initPath):
     print("El Mejor Recorrido Encontrado es:")
     print(f"Camino: {bestPath[0]}")
     print(f"Valor del Camino: {bestPath[1]}")
+    return bestPath, grafoIni
 
-solve("A-B-C-E-F-D-A".split("-"))
+#solve("A-B-C-E-F-D-A".split("-"))
+#graph(grafoIni, "A-B-C-E-F-D-A".split("-"))

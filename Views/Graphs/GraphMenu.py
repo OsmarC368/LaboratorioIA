@@ -1,20 +1,20 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from ReinasViews.ReinasMenu import ReinasMenuView
-from NumMaxMinViews.NumMaxMinMenu import NumMaxMinMenuView
-from Graphs.GraphMenu import GraphMenu
+from .GraphTabu import GraphTabuView
+from .GraphTemperature import GraphTempView
 
-class MenuView:
-    def __init__(self):
+class GraphMenu:
+    def __init__(self, mWindow):
+        self.mainWindow = mWindow
         self.window = tk.Tk()
-        self.window.title("Menu Principal")
-        self.window.geometry("600x320")
+        self.window.title("Graph Menu")
+        self.window.geometry("550x250")
         self.window.resizable(0,0)
         self.window.configure(background="#2b2f36")
         #labels
-        self.labelTitle = tk.Label(self.window, text="\-Menu Principal-/", font=("Arial", 16, "bold"), foreground="WHITE", background="#2b2f36")
-        self.labelTitle.pack(pady=12)
+        self.labelTitle = tk.Label(self.window, text="\-Graph Menu-/", font=("Arial", 14, "bold"), foreground="WHITE", background="#2b2f36")
+        self.labelTitle.pack(pady=8)
 
         #Create Options
         self.createOptions()
@@ -32,11 +32,6 @@ class MenuView:
                 font=("Arial", 10, "bold")
         ).pack(pady=6)
 
-    def hide(self):
-        self.window.withdraw()
-
-    def show(self):
-        self.window.deiconify()
 
     def initiate(self):
         self.window.mainloop()
@@ -45,10 +40,11 @@ class MenuView:
         messagebox.showinfo(title, message,)
 
     def close(self):
+        self.mainWindow.show()
         self.window.destroy()
 
     def createOptions(self):
-        options = [ "Reinas", "Viajero", "FuncionMinMax" ]
+        options =  ["Tabu", "Temperatura"]
         for key in options:
             tk.Button(
                 self.window,
@@ -69,26 +65,16 @@ class MenuView:
 
 
 def option(self, k):
-    if k == "Reinas":
-        showReinas(self)
-    elif k == "Viajero":
-        showViajero(self)
-    elif k == "FuncionMinMax":
-        showMaxMin(self)
-
-def showReinas(self):
-    self.hide()
-    ReinasMenuView(self).initiate()
-
-def showViajero(self):
-    self.hide()
-    GraphMenu(self).initiate()
-
-def showMaxMin(self):
-    self.hide()
-    NumMaxMinMenuView(self).initiate()
+    if k == "Tabu":
+        showTabu(self)
+    elif k == "Temperatura":
+        showTemp(self)
 
 
-if __name__ == "__main__":   
-    menu = MenuView()
-    menu.initiate()
+def showTabu(self):
+    self.window.destroy()
+    GraphTabuView(self.mainWindow).show()
+
+def showTemp(self):
+    self.window.destroy()
+    GraphTempView(self.mainWindow).show()

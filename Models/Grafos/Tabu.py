@@ -1,5 +1,5 @@
 import random
-from GraphModel import *
+from .GraphModel import *
 import math
 
 grafoIni = {
@@ -43,5 +43,6 @@ def solve(initSolv):
 
     print(minPath)
     print(minVal)
+    return [minPath, minVal], tabuList, grafoIni
 
-solve("A-B-C-E-F-D-A".split("-"))
+# solve("A-B-C-E-F-D-A".split("-"))
