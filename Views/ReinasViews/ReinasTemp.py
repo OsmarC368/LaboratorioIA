@@ -5,6 +5,7 @@ from Models.Reinas import Tempereture
 
 class ReinasTempView:
     def __init__(self, mainWindow):
+        self.result = None
         self.mainWindow = mainWindow
         self.window = tk.Tk()
         self.window.title("Reinas Temperatura")
@@ -40,7 +41,7 @@ class ReinasTempView:
 
         self.buttonGraph = tk.Button(
             self.window, 
-            command=lambda: (), 
+            command=lambda: self.showGraph(), 
             text="Grafico",
             background="#243d55",
             activebackground="#61b9eb",
@@ -77,10 +78,19 @@ class ReinasTempView:
         try:
             initSol = self.entryInitSol.get().split("-")
             initSol = list(map(lambda x: int(x), initSol))
-            result = Tempereture.solve(initSol)
+            self.result = Tempereture.solve(initSol)
             self.textResult.delete('1.0', END)
             self.textResult.insert('end', f"Resultado!")
-            self.textResult.insert('end', f"\nPosiciones: {result['list']}")
-            self.textResult.insert('end', f"\nNumero de Colisiones: {result['colNum']}")
+            self.textResult.insert('end', f"\nPosiciones: {self.result['list']}")
+            self.textResult.insert('end', f"\nNumero de Colisiones: {self.result['colNum']}")
         except:
             self.showMessage("ERROR", "Posible Error con la Entrada de Datos")
+
+    def showGraph(self):
+        try:
+            if self.result == None:
+                self.showMessage("ERROR", "Realice un Calculo Primero!")
+            else:
+                Tempereture.graph(self.result['list'], self.result['colNum'])
+        except:
+                self.showMessage("ERROR", "FATAL ERROR")

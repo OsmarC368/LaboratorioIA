@@ -1,4 +1,5 @@
-from tabulate import tabulate
+import matplotlib.pyplot as plt
+import numpy as np
 
 def createTable(qList):
     table = []
@@ -90,12 +91,31 @@ def countColisions(table, qList):
     return colisiones
 
 
+def graph(sol, colisions):
+    tablero = np.zeros((len(sol),len(sol)))
+    tablero[1::2, ::2] = 1
+    tablero[::2, 1::2] = 1
+    plt.imshow(tablero, cmap='gray', interpolation='nearest')
+    plt.xticks([])
+    plt.yticks([])
 
-# print(tabulate(createTable([1,2,2,4]), tablefmt="fancy_grid"))
-# print(countColisions(createTable([1,2,2,4]), [1,2,2,4]))
-# print(tabulate(createTable([1,2,1,1]), tablefmt="fancy_grid"))
-# print(countColisions(createTable([1,2,1,1]), [1,2,1,1]))
+    qPositions = []
+    for i,x in enumerate(sol):
+        qPositions.append((i, x-1))
+
+    # Dibujar líneas de cuadrícula
+    for i in range(len(sol)):
+        plt.axhline(i - 0.5, color='black', linewidth=1)
+        plt.axvline(i - 0.5, color='black', linewidth=1)
+
+    for fila, col in qPositions:
+        if colisions == 0:
+            plt.text(col, fila, '♛', fontsize=30, ha='center', va='center', color='green')
+        else:
+            plt.text(col, fila, '♛', fontsize=30, ha='center', va='center', color='red')
 
 
-# print(tabulate(createTable([4,3,2,1]), tablefmt="fancy_grid"))
-# print(countColisions(createTable([4,3,2,1]), [4,3,2,1]))
+    plt.title(f"♛ Tablero de Ajedrez {len(sol)}x{len(sol)}")
+    plt.show()
+
+

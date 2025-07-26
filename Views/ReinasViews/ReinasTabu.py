@@ -5,6 +5,7 @@ from Models.Reinas import Tabu_4Reinas
 
 class ReinasTabuView:
     def __init__(self, mainWindow):
+        self.result = None
         self.mainWindow = mainWindow
         self.window = tk.Tk()
         self.window.title("Reinas Tabu")
@@ -52,7 +53,7 @@ class ReinasTabuView:
 
         self.buttonGraph = tk.Button(
             self.window, 
-            command=lambda: (), 
+            command=lambda: self.showGraph(), 
             text="Grafico",
             background="#243d55",
             activebackground="#61b9eb",
@@ -89,15 +90,24 @@ class ReinasTabuView:
         try:
             initSol = self.entryInitSol.get().split("-")
             initSol = list(map(lambda x: int(x), initSol))
-            result, tabuList = Tabu_4Reinas.solve(initSol)
+            self.result, tabuList = Tabu_4Reinas.solve(initSol)
             self.textResult.delete('1.0', END)
             self.textTabu.delete('1.0', END)
             self.textResult.insert('end', f"Resultado!")
-            self.textResult.insert('end', f"\nPosiciones: {result[0]}")
-            self.textResult.insert('end', f"\nNumero de Colisiones: {result[1]}")
+            self.textResult.insert('end', f"\nPosiciones: {self.result[0]}")
+            self.textResult.insert('end', f"\nNumero de Colisiones: {self.result[1]}")
 
             for x in tabuList:
                 self.textTabu.insert('end', f"\n{x}")
         except:
             self.showMessage("ERROR", "Posible Error con la Entrada de Datos")
+
+    def showGraph(self):
+        try:
+            if self.result == None:
+                self.showMessage("ERROR", "Realice un Calculo Primero!")
+            else:
+                Tabu_4Reinas.graph(self.result[0], self.result[1])
+        except:
+                self.showMessage("ERROR", "FATAL ERROR")
             
