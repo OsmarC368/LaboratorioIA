@@ -32,7 +32,6 @@ def graph(graph, route):
 
 # Mostrar el grafo
     plt.show()
-    # nx.draw(G)
 
 
 
